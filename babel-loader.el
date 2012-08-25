@@ -12,3 +12,7 @@
 				   (exported-file (concat base-name ".el")))
 			  (bl:compile file exported-file)))
 		(directory-files dir t "\\.org$")))
+
+(defun bl:load-dir (dir)
+  (bl:compile-dir dir)
+  (init-loader-load dir))
