@@ -1,0 +1,11 @@
+* Configure file loader for Literate Programmer.
+
+1. You write configure by org-mode babel.
+2. You have to install init-loaer.el.
+3. You write follow code to dot.emacs.
+   
+   : (add-to-list 'load-path "/path/to/babel-loader.el")
+   : (require 'babel-loader)
+   : (bl:init-load "/path/to/config")
+
+4. Have a fun!
