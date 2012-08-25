@@ -25,15 +25,13 @@
 (defun bl:config-updated-p (file)
   (let* ((base-name (file-name-sans-extension file))
 		 (exported-file (concat base-name ".el")))
-	(and (file-exists-p exported-file)
-		 (> (bl:get-file-modified file)
-			(bl:get-file-modified exported-file)))))
-  
+	(not (or (file-exists-p exported-file)
+			 (> (bl:get-file-modified file)
+				(bl:get-file-modified exported-file))))))
+
 (defun bl:compile (file exported-file)
   (if (bl:config-updated-p file)
-      (org-babel-tangle-file file
-			     exported-file
-			     "emacs-lisp")))
+	  (org-babel-tangle-file file exported-file "emacs-lisp")))
 
 (defun bl:compile-dir (dir)
   (mapc #'(lambda (file)
@@ -43,8 +41,9 @@
 		(directory-files dir t "\\.org$")))
 
 (defun bl:load-dir (dir)
-  (bl:compile-dir dir)
-  (init-loader-load dir))
+  (progn 
+	(bl:compile-dir dir)
+	(init-loader-load dir)))
 
 (provide 'babel-loader)
 
