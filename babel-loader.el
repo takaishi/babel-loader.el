@@ -1,3 +1,18 @@
+;;;  -*- coding: utf-8; mode: emacs-lisp; -*-
+;;; babel-loader.el --- init-loader with Babel.
+
+;; Copyright (C) 1992 Free Software Foundation, Inc.
+
+;; Author: Ryo TAKAISHI <ryo.takaishi.0@gmail.com>
+;; Created 25 Aug 2012
+;; Version 0.1
+
+;; This file is part of GNU Emacs.
+;; This help to load your config file written by Babel.
+;; Babel is org-mode's ability to execute source code within org-mode documents.
+
+;; Code goes here
+
 (require 'init-loader)
 (require 'ob)
 
@@ -32,3 +47,5 @@
   (init-loader-load dir))
 
 (provide 'babel-loader)
+
+;;; babel-loader.el ends here
