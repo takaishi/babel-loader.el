@@ -15,10 +15,10 @@
 			(bl:get-file-modified exported-file)))))
   
 (defun bl:compile (file exported-file)
-  (if bl:config-updated-p (file)
-	(org-babel-tangle-file file
-						   exported-file
-						   "emacs-lisp")))
+  (if (bl:config-updated-p file)
+      (org-babel-tangle-file file
+			     exported-file
+			     "emacs-lisp")))
 
 (defun bl:compile-dir (dir)
   (mapc #'(lambda (file)
@@ -30,3 +30,5 @@
 (defun bl:load-dir (dir)
   (bl:compile-dir dir)
   (init-loader-load dir))
+
+(provide 'babel-loader)
