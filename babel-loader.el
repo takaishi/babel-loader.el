@@ -25,9 +25,9 @@
 (defun bl:config-updated-p (file)
   (let* ((base-name (file-name-sans-extension file))
 		 (exported-file (concat base-name ".el")))
-	(not (or (file-exists-p exported-file)
-			 (> (bl:get-file-modified file)
-				(bl:get-file-modified exported-file))))))
+	(if (file-exists-p exported-file)
+		(> (bl:get-file-modified file) (bl:get-file-modified exported-file))
+	  t)))
 
 (defun bl:compile (file exported-file)
   (if (bl:config-updated-p file)
