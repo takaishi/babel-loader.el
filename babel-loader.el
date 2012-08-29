@@ -18,16 +18,17 @@
 
 (defun bl:get-file-modified (file)
   (let* ((modified (nth 5 (file-attributes file)))
-		 (high (nth 1 modified))
-		 (low (nth 2 modified)))
+		 (high (nth 0 modified))
+		 (low (or (nth 1 modified) 0)))
 	(+ (* high 65536) low)))
 
 (defun bl:config-updated-p (file)
   (let* ((base-name (file-name-sans-extension file))
 		 (exported-file (concat base-name ".el")))
-	(if (file-exists-p exported-file)
+    (if (file-exists-p exported-file)
 		(> (bl:get-file-modified file) (bl:get-file-modified exported-file))
-	  t)))
+      t)))
+
 
 (defun bl:compile (file exported-file)
   (if (bl:config-updated-p file)
